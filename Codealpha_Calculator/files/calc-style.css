@@ -1,0 +1,306 @@
+/* =============================================
+   CALC — Calculator
+   Warm & Neutral Palette
+   ============================================= */
+
+:root {
+  --bg:           #f0ebe0;
+  --calc-body:    #e8e0d0;
+  --calc-shadow:  rgba(100, 75, 45, 0.18);
+  --display-bg:   #2c2418;
+  --display-text: #f5eed8;
+  --display-muted:#9c8a6a;
+  --display-expr: #c8a96e;
+
+  --btn-num-bg:   #ddd5c0;
+  --btn-num-hover:#cfc6ae;
+  --btn-num-text: #2c2418;
+
+  --btn-fn-bg:    #c8bda8;
+  --btn-fn-hover: #b8ad98;
+  --btn-fn-text:  #2c2418;
+
+  --btn-op-bg:    #b07d4a;
+  --btn-op-hover: #c48e58;
+  --btn-op-active:#8a6238;
+  --btn-op-text:  #faf5ec;
+
+  --btn-eq-bg:    #8a6238;
+  --btn-eq-hover: #b07d4a;
+  --btn-eq-text:  #faf5ec;
+
+  --radius:       16px;
+  --btn-radius:   12px;
+  --font-mono:    'DM Mono', monospace;
+  --font-ui:      'DM Sans', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: var(--font-ui);
+  /* Subtle warm linen texture */
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba(200,169,110,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 70%, rgba(176,125,74,0.10) 0%, transparent 55%);
+}
+
+/* ─── Scene / Card ─────────────────────────── */
+.scene {
+  perspective: 1200px;
+}
+
+.calculator {
+  background: var(--calc-body);
+  border-radius: var(--radius);
+  padding: 20px;
+  width: 320px;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.6) inset,
+    0 -2px 0 rgba(0,0,0,0.06) inset,
+    0 24px 60px var(--calc-shadow),
+    0 6px 20px rgba(100,75,45,0.12);
+  animation: riseUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+
+  /* Subtle top border highlight */
+  border: 1px solid rgba(255,255,255,0.55);
+  border-bottom-color: rgba(0,0,0,0.08);
+}
+
+/* ─── Display ──────────────────────────────── */
+.display {
+  background: var(--display-bg);
+  border-radius: 10px;
+  padding: 18px 20px 14px;
+  margin-bottom: 18px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 2px;
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.25) inset,
+    0 1px 0 rgba(255,255,255,0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Subtle scanline effect */
+.display::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.04) 3px,
+    rgba(0,0,0,0.04) 4px
+  );
+  pointer-events: none;
+  border-radius: 10px;
+}
+
+.display-expression {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--display-expr);
+  letter-spacing: 0.05em;
+  min-height: 1.2em;
+  transition: opacity 0.2s;
+  word-break: break-all;
+  text-align: right;
+}
+
+.display-result {
+  font-family: var(--font-mono);
+  font-size: 2.6rem;
+  font-weight: 300;
+  color: var(--display-text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  word-break: break-all;
+  text-align: right;
+  transition: font-size 0.15s ease;
+}
+
+.display-result.small  { font-size: 1.9rem; }
+.display-result.xsmall { font-size: 1.4rem; }
+
+.display-hint {
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--display-muted);
+  min-height: 1em;
+  opacity: 0.6;
+}
+
+/* ─── Button Grid ──────────────────────────── */
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* ─── Base Button ──────────────────────────── */
+.btn {
+  border: none;
+  border-radius: var(--btn-radius);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 400;
+  cursor: pointer;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Physical button depth */
+  box-shadow:
+    0 4px 0 rgba(0,0,0,0.15),
+    0 1px 0 rgba(255,255,255,0.4) inset;
+}
+
+/* Ripple pseudo-element */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.15);
+  opacity: 0;
+  transition: opacity 0.2s;
+  border-radius: inherit;
+}
+
+.btn:hover::after  { opacity: 1; }
+.btn:active::after { opacity: 0; }
+
+.btn:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.15),
+    0 1px 0 rgba(255,255,255,0.4) inset;
+}
+
+/* ─── Number Buttons ───────────────────────── */
+.btn-num {
+  background: var(--btn-num-bg);
+  color: var(--btn-num-text);
+}
+.btn-num:hover { background: var(--btn-num-hover); }
+
+/* Zero spans 2 columns */
+.btn-zero {
+  grid-column: span 2;
+  justify-content: flex-start;
+  padding-left: 22px;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Function Buttons ─────────────────────── */
+.btn-fn {
+  background: var(--btn-fn-bg);
+  color: var(--btn-fn-text);
+  font-size: 0.95rem;
+}
+.btn-fn:hover { background: var(--btn-fn-hover); }
+
+/* ─── Operator Buttons ─────────────────────── */
+.btn-op {
+  background: var(--btn-op-bg);
+  color: var(--btn-op-text);
+  font-size: 1.2rem;
+}
+.btn-op:hover  { background: var(--btn-op-hover); }
+.btn-op.active {
+  background: var(--btn-op-text);
+  color: var(--btn-op-bg);
+}
+
+/* ─── Equals Button ────────────────────────── */
+.btn-eq {
+  background: var(--btn-eq-bg);
+  color: var(--btn-eq-text);
+  font-size: 1.2rem;
+}
+.btn-eq:hover { background: var(--btn-eq-hover); }
+
+/* ─── Keyboard Hint ────────────────────────── */
+.keyboard-hint {
+  text-align: center;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: #9c8a6a;
+  margin-top: 14px;
+  opacity: 0.7;
+  font-family: var(--font-ui);
+}
+
+/* ─── Error flash ──────────────────────────── */
+.calculator.error .display {
+  animation: errorFlash 0.4s ease;
+}
+
+/* ─── Key pressed highlight ────────────────── */
+.btn.pressed {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.15),
+    0 1px 0 rgba(255,255,255,0.4) inset;
+  filter: brightness(0.9);
+}
+
+/* ─── Animations ───────────────────────────── */
+@keyframes riseUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes errorFlash {
+  0%   { background: var(--display-bg); }
+  25%  { background: #5c2020; }
+  75%  { background: #5c2020; }
+  100% { background: var(--display-bg); }
+}
+
+@keyframes resultPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.display-result.pop {
+  animation: resultPop 0.2s ease;
+}
+
+/* ─── Responsive ───────────────────────────── */
+@media (max-width: 380px) {
+  .calculator { width: 290px; padding: 16px; }
+  .btn { height: 54px; }
+  .display-result { font-size: 2.2rem; }
+}

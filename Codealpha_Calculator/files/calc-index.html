@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CALC — Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="calc-style.css" />
+</head>
+<body>
+
+  <div class="scene">
+
+    <!-- Calculator Card -->
+    <div class="calculator" id="calculator">
+
+      <!-- Display -->
+      <div class="display">
+        <div class="display-expression" id="expression">&nbsp;</div>
+        <div class="display-result" id="result">0</div>
+        <div class="display-hint" id="hint">&nbsp;</div>
+      </div>
+
+      <!-- Button Grid -->
+      <div class="btn-grid">
+
+        <!-- Row 1 -->
+        <button class="btn btn-fn"    data-action="clear">AC</button>
+        <button class="btn btn-fn"    data-action="sign">+/−</button>
+        <button class="btn btn-fn"    data-action="percent">%</button>
+        <button class="btn btn-op"    data-action="divide">÷</button>
+
+        <!-- Row 2 -->
+        <button class="btn btn-num"   data-action="num" data-value="7">7</button>
+        <button class="btn btn-num"   data-action="num" data-value="8">8</button>
+        <button class="btn btn-num"   data-action="num" data-value="9">9</button>
+        <button class="btn btn-op"    data-action="multiply">×</button>
+
+        <!-- Row 3 -->
+        <button class="btn btn-num"   data-action="num" data-value="4">4</button>
+        <button class="btn btn-num"   data-action="num" data-value="5">5</button>
+        <button class="btn btn-num"   data-action="num" data-value="6">6</button>
+        <button class="btn btn-op"    data-action="subtract">−</button>
+
+        <!-- Row 4 -->
+        <button class="btn btn-num"   data-action="num" data-value="1">1</button>
+        <button class="btn btn-num"   data-action="num" data-value="2">2</button>
+        <button class="btn btn-num"   data-action="num" data-value="3">3</button>
+        <button class="btn btn-op"    data-action="add">+</button>
+
+        <!-- Row 5 -->
+        <button class="btn btn-num btn-zero" data-action="num" data-value="0">0</button>
+        <button class="btn btn-num"   data-action="decimal">.</button>
+        <button class="btn btn-eq"    data-action="equals">=</button>
+
+      </div>
+
+      <!-- Keyboard hint -->
+      <p class="keyboard-hint">⌨ Keyboard supported</p>
+
+    </div>
+
+  </div>
+
+  <script src="calc-script.js"></script>
+</body>
+</html>
