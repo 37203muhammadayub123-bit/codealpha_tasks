@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUMIÈRE — Image Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Texture overlay -->
+  <div class="texture-overlay" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-left">
+      <h1 class="logo">Lumi<em>ère</em></h1>
+      <p class="logo-sub">Curated Visual Stories</p>
+    </div>
+    <div class="header-right">
+      <span class="image-count" id="image-count">18 Photographs</span>
+    </div>
+  </header>
+
+  <!-- Filter bar -->
+  <nav class="filter-bar" aria-label="Filter by category">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="nature">Nature</button>
+    <button class="filter-btn" data-filter="urban">Urban</button>
+    <button class="filter-btn" data-filter="portrait">Portrait</button>
+    <button class="filter-btn" data-filter="abstract">Abstract</button>
+    <button class="filter-btn" data-filter="travel">Travel</button>
+  </nav>
+
+  <!-- Gallery -->
+  <main class="gallery" id="gallery" aria-label="Image gallery"></main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox-backdrop" id="lb-backdrop"></div>
+    <div class="lightbox-inner">
+      <button class="lb-close" id="lb-close" aria-label="Close">✕ Close</button>
+      <button class="lb-nav lb-prev" id="lb-prev" aria-label="Previous image">&#8592;</button>
+      <div class="lb-stage">
+        <img class="lb-img" id="lb-img" src="" alt="" />
+      </div>
+      <button class="lb-nav lb-next" id="lb-next" aria-label="Next image">&#8594;</button>
+      <div class="lb-info">
+        <h2 class="lb-title" id="lb-title"></h2>
+        <span class="lb-tag" id="lb-tag"></span>
+        <p class="lb-desc" id="lb-desc"></p>
+        <p class="lb-counter" id="lb-counter"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
